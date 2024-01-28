@@ -5,16 +5,20 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import PrinterModel from "../print/PrinterModel";
 import AddCpmponent from "../add/addComponent";
 import SettingPage from "../setting/setting";
+import { PrintData } from "../bean";
 
 
 function Menu(props: { utils: printerUtils }) {
     const [selectIndex, setSelectIndex] = useState(0);
-
+    const [printeData, setPrinteData] = useState<PrintData[]>([]);
 
 
     function selectItem(index: number, lastIndex: number, event: Event) {
         setSelectIndex(index);
-        console.log(index)
+    }
+
+    function dataChangelistener(data:PrintData[]){
+         setPrinteData(data)
     }
 
     return (
@@ -40,7 +44,7 @@ function Menu(props: { utils: printerUtils }) {
                     </TabList>
                     <TabPanel>
                         <div className={'Plane'}>
-                            <AddCpmponent />
+                            <AddCpmponent initData={printeData}  dataChangelistener={dataChangelistener}/>
                         </div>
                     </TabPanel >
                     <TabPanel>
@@ -50,7 +54,7 @@ function Menu(props: { utils: printerUtils }) {
                     </TabPanel>
                     <TabPanel >
                         <div className={'Plane'}>
-                            <PrinterModel utils={props.utils} />
+                            <PrinterModel printData={printeData} utils={props.utils} />
                         </div>
                     </TabPanel>
                     <TabPanel><div className={'Plane'} style={{ color: 'black'}}>暂不支持</div></TabPanel>

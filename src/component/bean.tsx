@@ -28,3 +28,15 @@ export class TextPrinteData extends PrintData {
         this.data = d;
     }
 }
+
+export class EmptyPrintData extends PrintData{
+   num:number=0;
+   constructor(num:number){
+    super("空行数量："+ num)
+    this.num = num;
+   }
+
+}
+
+export class DividPrintData  extends PrintData{
+}

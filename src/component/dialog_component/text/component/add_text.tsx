@@ -2,7 +2,7 @@ import EscPosEncoder from 'esc-pos-encoder';
 import { encode } from 'iconv-lite';
 import TextComponent from './textComponent';
 import { useState } from 'react';
-import { PrintData, TextData, TextPrinteData } from './Text';
+import { PrintData, TextData, TextPrinteData } from '../../../bean';
 import MenuItem from '../../../tab/menuItem';
 export default function AddText(props: { initData: TextData[] | null, addEncoderListen: (data: PrintData) => void }) {
     const [textValue, setTextValue] = useState<TextData[]>(props.initData ?? []);
@@ -14,12 +14,6 @@ export default function AddText(props: { initData: TextData[] | null, addEncoder
 
 
     function ext() {
-        // const data = new EscPosEncoder();
-        // textValue.map((d, i) => {
-        //     if (d.content != '') {  
-        //         data.align('left').bold(d.fontBlod).size('normal').raw(encode(d.content, 'gb18030'))         
-        //     }
-        // })
         if (textValue.length > 0) {
             let text:string='';
             textValue.map((d,i)=>{

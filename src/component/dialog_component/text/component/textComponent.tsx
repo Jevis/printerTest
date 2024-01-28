@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import './text.css'
 import { useRef, useState } from 'react';
-import { TextData } from './Text';
+import { TextData } from '../../../bean';
 
 
 export default function AddTextComponent(props: { type: number, data: TextData, listener: (addData: TextData) => void }) {

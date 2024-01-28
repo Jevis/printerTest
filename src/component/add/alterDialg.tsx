@@ -6,12 +6,12 @@ import AddEmptyLine from '../dialog_component/empty_line/add_new_line';
 import AddLine from '../dialog_component/divid_line/add_line';
 import AddTable from '../dialog_component/table/add_table';
 import EscPosEncoder from 'esc-pos-encoder';
-import { PrintData, TextPrinteData } from '../dialog_component/text/component/Text';
+import { DividPrintData, EmptyPrintData, PrintData, TextPrinteData } from '../bean';
 
-export default function EditAddButton(props: { initData: PrintData | null, addEncoderListen: (data: PrintData) => void }) {
+export default function EditAddButton(props: { initData: PrintData | null, addEncoderListen: (data: PrintData) => void}) {
     const TYPE_TEXT: string = '0';
-    const TYPE_NEW_LINE: string = '1';
-    const TYPE_LINE: string = '2';
+    const TYPE_EMPTY_LINE: string = '1';
+    const TYPE_DIVID_LINE: string = '2';
     const TYPE_TABLE: string = '3';
 
     const [selectType, setSelectType] = useState(TYPE_TEXT);
@@ -19,10 +19,13 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
     const [dialogOpen, setDialogOpen] = useState(false);
 
     useEffect(() => {
-        if (props.initData instanceof TextPrinteData) {
+        console.log(printData)
+        if (printData instanceof TextPrinteData|| printData == null) {
             setSelectType(TYPE_TEXT);
+        }else if(printData instanceof EmptyPrintData){
+            setSelectType(TYPE_EMPTY_LINE)
         }
-    }, [])
+    }, [printData])
 
 
     function addEncoderListen(data: PrintData) {
@@ -60,8 +63,8 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
                                             setSelectType(e.target.value)
                                         }}>
                                         <option value={TYPE_TEXT}>一行文案</option>
-                                        <option value={TYPE_NEW_LINE}>空行</option>
-                                        <option value={TYPE_LINE}>分割线</option>
+                                        <option value={TYPE_EMPTY_LINE}>空行</option>
+                                        <option value={TYPE_DIVID_LINE}>分割线</option>
                                         <option value={TYPE_TABLE}>多列数据</option>
                                     </select>
 
@@ -72,11 +75,11 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
                         <fieldset className="Fieldset" style={{ display: selectType == TYPE_TEXT ? 'flex' : 'none' }}>
                             <AddText initData={props.initData instanceof TextPrinteData ? props.initData.data : null} addEncoderListen={addEncoderListen}></AddText>
                         </fieldset>
-                        <fieldset className="Fieldset" style={{ display: selectType == TYPE_NEW_LINE ? 'flex' : 'none' }}>
-                            <AddEmptyLine addEncoderListen={props.addEncoderListen}></AddEmptyLine>
+                        <fieldset className="Fieldset" style={{ display: selectType == TYPE_EMPTY_LINE ? 'flex' : 'none' }}>
+                            <AddEmptyLine initData={props.initData instanceof EmptyPrintData ? props.initData.num : 0} addEncoderListen={addEncoderListen}></AddEmptyLine>
                         </fieldset>
-                        <fieldset className="Fieldset" style={{ display: selectType == TYPE_LINE ? 'flex' : 'none' }}>
-                            <AddLine addEncoderListen={props.addEncoderListen}></AddLine>
+                        <fieldset className="Fieldset" style={{ display: selectType == TYPE_DIVID_LINE ? 'flex' : 'none' }}>
+                            <AddLine initData={props.initData instanceof DividPrintData ? props.initData.showText : ''} addEncoderListen={props.addEncoderListen}></AddLine>
                         </fieldset>
                         <fieldset className="Fieldset" style={{ display: selectType == TYPE_TABLE ? 'flex' : 'none' }}>
                             <AddTable addEncoderListen={props.addEncoderListen}></AddTable>

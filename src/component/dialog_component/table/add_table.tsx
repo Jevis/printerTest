@@ -1,10 +1,17 @@
 import EscPosEncoder from "esc-pos-encoder";
-import { PrintData } from "../text/component/Text";
+import { PrintData } from "../../bean";
 
 export default function AddTable(props:{addEncoderListen:(data:PrintData)=>void}){
+     
     return (
-        <div>
-            addTable
+        <div style={{width:'100%',height:'700px',display:'flex',flexDirection:'column'}}>
+
+            <div style={{width:'100%',height:'200px'}}>
+                配置
+            </div>
+            <div style={{width:'100%',height:'500px'}}>
+                表格
+            </div>
         </div>
     );
 }
