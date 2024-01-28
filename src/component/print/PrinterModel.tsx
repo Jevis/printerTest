@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import printerUtils from '../priter_utils/printerManager';
+import printerUtils from '../../priter_utils/printerManager';
 import { click } from '@testing-library/user-event/dist/click';
 import EscPosEncoder from 'esc-pos-encoder';
 import { encode } from 'iconv-lite';

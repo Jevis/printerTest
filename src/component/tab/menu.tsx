@@ -1,10 +1,10 @@
 import { useState } from "react";
-import printerUtils from "../priter_utils/printerManager";
-import "./component.css"
+import printerUtils from "../../priter_utils/printerManager";
+import "./tab.css"
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import PrinterModel from "./PrinterModel";
-import AddCpmponent from "./addComponent";
-import SettingPage from "./setting";
+import PrinterModel from "../print/PrinterModel";
+import AddCpmponent from "../add/addComponent";
+import SettingPage from "../setting/setting";
 
 
 function Menu(props: { utils: printerUtils }) {

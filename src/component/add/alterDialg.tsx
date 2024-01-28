@@ -1,12 +1,12 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import "./component.css"
+import ".././component.css"
 import { useEffect, useRef, useState } from 'react';
-import AddText from './dialog_component/text/add_text';
-import AddEmptyLine from './dialog_component/add_new_line';
-import AddLine from './dialog_component/add_line';
-import AddTable from './dialog_component/add_table';
+import AddText from '../dialog_component/text/component/add_text';
+import AddEmptyLine from '../dialog_component/empty_line/add_new_line';
+import AddLine from '../dialog_component/divid_line/add_line';
+import AddTable from '../dialog_component/table/add_table';
 import EscPosEncoder from 'esc-pos-encoder';
-import { PrintData, TextPrinteData } from './dialog_component/text/Text';
+import { PrintData, TextPrinteData } from '../dialog_component/text/component/Text';
 
 export default function EditAddButton(props: { initData: PrintData | null, addEncoderListen: (data: PrintData) => void }) {
     const TYPE_TEXT: string = '0';

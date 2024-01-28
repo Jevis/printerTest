@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import printerUtils from "../priter_utils/printerManager";
 import './home.css'
 import PriterHeader from "../component/header";
-import PrinterModel from "../component/PrinterModel";
-import Menu from "../component/menu";
+import Menu from "../component/tab/menu";
 
 
 function Home(){

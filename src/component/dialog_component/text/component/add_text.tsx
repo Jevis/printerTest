@@ -3,7 +3,7 @@ import { encode } from 'iconv-lite';
 import TextComponent from './textComponent';
 import { useState } from 'react';
 import { PrintData, TextData, TextPrinteData } from './Text';
-import MenuItem from '../../menuItem';
+import MenuItem from '../../../tab/menuItem';
 export default function AddText(props: { initData: TextData[] | null, addEncoderListen: (data: PrintData) => void }) {
     const [textValue, setTextValue] = useState<TextData[]>(props.initData ?? []);
 

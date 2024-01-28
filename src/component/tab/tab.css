@@ -1,0 +1,37 @@
+.MenuAdd {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.MenuButtom {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    color: #282c34;
+    background-color: bisque;
+}
+.MenuItem{
+    width: "100%";
+    height: auto;
+    min-height: 40px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    background-color: #282c34;
+    color: white;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+  }
+  .Plane{
+    opacity: 0.6;
+    border-radius: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+}

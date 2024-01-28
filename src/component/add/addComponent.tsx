@@ -1,10 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { AlertDialog } from '@radix-ui/react-alert-dialog';
-import './component.css'
 import EditAddButton from './alterDialg';
 import EscPosEncoder from 'esc-pos-encoder';
 import { useState } from 'react';
-import { PrintData } from './dialog_component/text/Text';
+import { PrintData } from '../dialog_component/text/component/Text';
 
 export default function AddCpmponent() {
 

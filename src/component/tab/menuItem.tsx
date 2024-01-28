@@ -1,6 +1,6 @@
-import './component.css'
-import { TextData } from './dialog_component/text/Text'
-import TextComponent from './dialog_component/text/textComponent'
+import './tab.css'
+import { TextData } from '../dialog_component/text/component/Text'
+import TextComponent from '../dialog_component/text/component/textComponent'
 
 export default function MenuItem(props: { id: number, data: TextData, editListenrer: (index: number, data: TextData) => void, removeListener: (index: number) => void }) {
 
