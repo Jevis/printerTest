@@ -18,7 +18,7 @@ function Menu(props: { utils: printerUtils }) {
     }
 
     return (
-        <div className="Menu">
+        <div className="Menu" style={{height:'calc(100vh-200px)'}}>
             <div>
                 <Tabs onSelect={selectItem} selectedIndex={selectIndex}>
                     <TabList className={'MenuAdd'}>
