@@ -6,7 +6,7 @@ import AddEmptyLine from '../dialog_component/empty_line/add_new_line';
 import AddLine from '../dialog_component/divid_line/add_line';
 import AddTable from '../dialog_component/table/add_table';
 import EscPosEncoder from 'esc-pos-encoder';
-import { DividPrintData, EmptyPrintData, PrintData, TextPrinteData } from '../bean';
+import { DividPrintData, EmptyPrintData, PrintData, TabPrintData, TextPrinteData } from '../bean';
 
 export default function EditAddButton(props: { initData: PrintData | null, addEncoderListen: (data: PrintData) => void}) {
     const TYPE_TEXT: string = '0';
@@ -19,13 +19,16 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
     const [dialogOpen, setDialogOpen] = useState(false);
 
     useEffect(() => {
-        console.log(printData)
-        if (printData instanceof TextPrinteData|| printData == null) {
+        if (props.initData instanceof TextPrinteData|| props.initData == null) {
             setSelectType(TYPE_TEXT);
-        }else if(printData instanceof EmptyPrintData){
+        }else if(props.initData instanceof EmptyPrintData){
             setSelectType(TYPE_EMPTY_LINE)
+        }else if(props.initData instanceof DividPrintData){
+            setSelectType(TYPE_DIVID_LINE)
+        }else if(props.initData instanceof TabPrintData){
+            setSelectType(TYPE_TABLE)
         }
-    }, [printData])
+    }, [])
 
 
     function addEncoderListen(data: PrintData) {
@@ -82,7 +85,7 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
                             <AddLine initData={props.initData instanceof DividPrintData ? props.initData.showText : ''} addEncoderListen={props.addEncoderListen}></AddLine>
                         </fieldset>
                         <fieldset className="Fieldset" style={{ display: selectType == TYPE_TABLE ? 'flex' : 'none' }}>
-                            <AddTable addEncoderListen={props.addEncoderListen}></AddTable>
+                            <AddTable tabPrintData={props.initData instanceof TabPrintData ? props.initData.tabData: []} addEncoderListen={props.addEncoderListen}></AddTable>
                         </fieldset>
                         <Dialog.Close asChild>
                             <button className="IconButton" aria-label="Close">

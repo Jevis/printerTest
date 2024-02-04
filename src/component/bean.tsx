@@ -40,3 +40,39 @@ export class EmptyPrintData extends PrintData{
 
 export class DividPrintData  extends PrintData{
 }
+
+
+export class TabBean{
+    content:string=''
+    constructor(data:string){
+        this.content =data
+    }
+}
+
+export  class TabConfig{
+    width:number=1;
+    align:string='left';
+    verticalAlign:string='top';
+    marginLeft:number=0;
+    marginRight:number=0;
+}
+
+
+export class TabData {
+      tabConfigs:TabConfig[];
+      tabData:TabBean[];
+      constructor(tabData:TabBean[],tabConfigs:TabConfig[]){
+        this.tabConfigs = tabConfigs;
+        this.tabData =tabData;
+      }
+
+}
+
+export class TabPrintData extends PrintData{
+    tabData:TabData[];
+
+    constructor(tabData:TabData[]){
+        super('tab类型数据')
+        this.tabData =tabData;
+      }
+}
