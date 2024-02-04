@@ -8,7 +8,7 @@ import AddTable from '../dialog_component/table/add_table';
 import EscPosEncoder from 'esc-pos-encoder';
 import { DividPrintData, EmptyPrintData, PrintData, TabPrintData, TextPrinteData } from '../bean';
 
-export default function EditAddButton(props: { initData: PrintData | null, addEncoderListen: (data: PrintData) => void}) {
+export default function EditAddButton(props: { initData: PrintData | null, addEncoderListen: (data: PrintData) => void }) {
     const TYPE_TEXT: string = '0';
     const TYPE_EMPTY_LINE: string = '1';
     const TYPE_DIVID_LINE: string = '2';
@@ -19,16 +19,19 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
     const [dialogOpen, setDialogOpen] = useState(false);
 
     useEffect(() => {
-        if (props.initData instanceof TextPrinteData|| props.initData == null) {
-            setSelectType(TYPE_TEXT);
-        }else if(props.initData instanceof EmptyPrintData){
-            setSelectType(TYPE_EMPTY_LINE)
-        }else if(props.initData instanceof DividPrintData){
-            setSelectType(TYPE_DIVID_LINE)
-        }else if(props.initData instanceof TabPrintData){
-            setSelectType(TYPE_TABLE)
+        if (dialogOpen) {
+            if (props.initData instanceof TextPrinteData || props.initData == null) {
+                setSelectType(TYPE_TEXT);
+            } else if (props.initData instanceof EmptyPrintData) {
+                setSelectType(TYPE_EMPTY_LINE)
+            } else if (props.initData instanceof DividPrintData) {
+                setSelectType(TYPE_DIVID_LINE)
+            } else if (props.initData instanceof TabPrintData) {
+                setSelectType(TYPE_TABLE)
+            }
         }
-    }, [])
+
+    }, [dialogOpen])
 
 
     function addEncoderListen(data: PrintData) {
@@ -55,7 +58,7 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
                     <Dialog.Content className='DialogContent'>
                         <Dialog.Title>填充添加数据</Dialog.Title>
                         {
-                            printData == null ?
+                            props.initData == null ?
                                 <fieldset className="Fieldset">
                                     <label className="Label">
                                         类型
@@ -82,10 +85,10 @@ export default function EditAddButton(props: { initData: PrintData | null, addEn
                             <AddEmptyLine initData={props.initData instanceof EmptyPrintData ? props.initData.num : 0} addEncoderListen={addEncoderListen}></AddEmptyLine>
                         </fieldset>
                         <fieldset className="Fieldset" style={{ display: selectType == TYPE_DIVID_LINE ? 'flex' : 'none' }}>
-                            <AddLine initData={props.initData instanceof DividPrintData ? props.initData.showText : ''} addEncoderListen={props.addEncoderListen}></AddLine>
+                            <AddLine initData={props.initData instanceof DividPrintData ? props.initData.showText : ''} addEncoderListen={addEncoderListen}></AddLine>
                         </fieldset>
                         <fieldset className="Fieldset" style={{ display: selectType == TYPE_TABLE ? 'flex' : 'none' }}>
-                            <AddTable tabPrintData={props.initData instanceof TabPrintData ? props.initData.tabData: []} addEncoderListen={props.addEncoderListen}></AddTable>
+                            <AddTable tabPrintData={props.initData instanceof TabPrintData ? props.initData.tabData : []} addEncoderListen={addEncoderListen}></AddTable>
                         </fieldset>
                         <Dialog.Close asChild>
                             <button className="IconButton" aria-label="Close">

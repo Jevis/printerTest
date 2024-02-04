@@ -18,7 +18,7 @@ export default function TabAddContentAlert(props: { index: number, tabCount: num
         } else {
             props.dataChangeListener(props.index, props.tadDatas)
         }
-        setDialogOpen(true)
+        setDialogOpen(false)
     }
 
 

@@ -7,7 +7,7 @@ import TabAddContentAlert from "./tabAddDataAlert";
 export default function AddTable(props: { tabPrintData: TabData[] | null, addEncoderListen: (data: PrintData) => void }) {
     const [tabNumber, setTabNumber] = useState(3);
     const [printData, setPrintData] = useState<TabData[]>(props.tabPrintData == null ? [] : props.tabPrintData);
-    const [tabConfig, setTabConfig] = useState<TabConfig[]>(props.tabPrintData != null && props.tabPrintData.length>0?props.tabPrintData[0].tabConfigs:[]);
+    const [tabConfig, setTabConfig] = useState<TabConfig[]>(props.tabPrintData != null && props.tabPrintData.length > 0 ? props.tabPrintData[0].tabConfigs : []);
     const tabColor = ['rebeccapurple', 'greenyellow', 'blue', 'yellow', 'pink', 'black']
 
     useEffect(() => {
@@ -20,11 +20,19 @@ export default function AddTable(props: { tabPrintData: TabData[] | null, addEnc
     }, [tabNumber])
 
     function configChangeListener(index: number, data: TabConfig) {
+        var allWidth = 0;
         var t = tabConfig.map((d, i) => {
             if (i == index) {
+                allWidth += data.width;
                 return data;
             }
+            allWidth += d.width;
             return d
+        })
+
+        var t= t.map((d) => {
+            d.allWidth = allWidth;
+            return d;
         })
         setTabConfig(t)
         changeDataConfig(t)
@@ -41,24 +49,24 @@ export default function AddTable(props: { tabPrintData: TabData[] | null, addEnc
     }
 
     function dataChangeListener(index: number, data: TabBean[]) {
-        console.log('ready data',index,data)
-        console.log('before',printData)
+        console.log('ready data', index, data)
+        console.log('before', printData)
         if (index < 0) {
             var list = [...printData, new TabData(data, tabConfig)]
             setPrintData(list)
         } else {
             var l = printData.map((d, i) => {
                 if (i == index) {
-                   d.tabData = data;
+                    d.tabData = data;
                 }
                 return d;
             })
-           
+
             setPrintData([...printData])
         }
     }
 
-    function getRender(d: TabData,columnIndex:number) {
+    function getRender(d: TabData, columnIndex: number) {
 
         return (
             d.tabConfigs.map((config, rowIndex) => {
@@ -74,8 +82,8 @@ export default function AddTable(props: { tabPrintData: TabData[] | null, addEnc
     }
 
 
-    function saveBtnClick(){
-       props.addEncoderListen(new TabPrintData(printData))
+    function saveBtnClick() {
+        props.addEncoderListen(new TabPrintData(printData))
     }
 
     return (
@@ -107,7 +115,7 @@ export default function AddTable(props: { tabPrintData: TabData[] | null, addEnc
                     printData.map((d, columnIndex) => {
                         return (
                             <div style={{ display: 'flex', flexDirection: 'row', height: '30px', marginTop: '3px' }}>
-                                {getRender(d,columnIndex)}
+                                {getRender(d, columnIndex)}
                             </div>
                         );
                     })

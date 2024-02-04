@@ -1,3 +1,4 @@
+type alignType = "left" | "center" | "right";
 export class TextData {
     content: string = '';
     aligin: string = 'left';
@@ -48,13 +49,13 @@ export class TabBean{
         this.content =data
     }
 }
-
 export  class TabConfig{
     width:number=1;
-    align:string='left';
+    align:alignType='left';
     verticalAlign:string='top';
     marginLeft:number=0;
     marginRight:number=0;
+    allWidth:number = 3;
 }
 
 

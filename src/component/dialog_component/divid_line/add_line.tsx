@@ -17,7 +17,7 @@ export default function AddLine(props: { initData: string, addEncoderListen: (da
     }
 
     return (
-        <div style={{ height: '300px', width: '300px', backgroundColor: 'red', display: 'flex', flexDirection: 'column', justifyContent: 'center', justifySelf: 'center' }}>
+        <div style={{ height: '300px', width: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'center', justifySelf: 'center' }}>
             <label>
                 选择样式:
                 <select defaultValue={showText} onChange={(e) => { setShowText(e.target.value) }}>

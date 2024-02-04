@@ -11,9 +11,8 @@ export default function TabConfigAlert(props: { index: number, tabConfig: TabCon
 
     function saveBtnClick() {
         if (data.width > 0) {
-            setDialogOpen(false)
             props.configChangeListener(props.index, data)
-            setDialogOpen(true)
+            setDialogOpen(false)
         }
     }
 
@@ -38,7 +37,7 @@ export default function TabConfigAlert(props: { index: number, tabConfig: TabCon
                         <label style={{ marginTop: '10px', fontSize: '18px' }}>
                             水平方向:
                             <select style={{ marginLeft: '10px' }} defaultValue={data.align} onChange={e => {
-                                data.align = e.target.value;
+                                data.align = e.target.value =='left'?'left':'right';
                                 setData(data)
                             }}>
                                 <option value={'left'}>居左</option>
