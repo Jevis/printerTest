@@ -42,9 +42,10 @@ function PrinterModel(props: { printData: PrintData[], utils: printerUtils }) {
 
                     if (centerContent != undefined) {
                         var t = encode(centerContent.content, 'gb18030')
-                        var gap = (48 - contentLength - t.length) / 2;
-                        contentLength += (gap>0?(gap+t.length):t.length);
-                        buf.bold(centerContent.fontBlod).text(gap > 0 ? ' '.repeat(gap) : '').raw(t)
+                        var gap = (48 - t.length) / 2;
+                        var moevLength= (gap>contentLength?gap-contentLength:0);
+                        contentLength += moevLength+t.length
+                        buf.bold(centerContent.fontBlod).text(moevLength>0 ? ' '.repeat(moevLength) : '').raw(t)
                     }
 
                     if (rightContent != undefined) {
