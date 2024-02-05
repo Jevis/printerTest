@@ -3,7 +3,7 @@ import printerUtils from '../../priter_utils/printerManager';
 import { click } from '@testing-library/user-event/dist/click';
 import EscPosEncoder from 'esc-pos-encoder';
 import { encode } from 'iconv-lite';
-import { DividPrintData, EmptyPrintData, PrintData, TabPrintData, TextPrinteData } from '../bean';
+import { DividPrintData, EmptyPrintData, PrintData, TabPrintData, TextData, TextPrinteData } from '../bean';
 import { utimes } from 'fs';
 import { Utils } from 'jsprintmanager';
 
@@ -15,12 +15,49 @@ function PrinterModel(props: { printData: PrintData[], utils: printerUtils }) {
         let buf = data.initialize().newline();
         props.printData.map((d) => {
             if (d instanceof TextPrinteData) {
-                d.data.map((t) => {
-                    if (t.content != '') {
-                        buf.align(t.aligin == 'center' ? 'center' : (t.aligin == 'left' ? 'left' : 'right')).bold(t.fontBlod).size('normal').raw(encode(t.content, 'gb18030'))
+
+                if (d.data.length > 1) {
+                    //多位置
+                    var leftContent: TextData | undefined;
+                    var centerContent: TextData | undefined;
+                    var rightContent: TextData | undefined;
+                    d.data.map((t) => {
+                        if (t.content != '') {
+                            if (t.aligin == 'left') {
+                                leftContent = t;
+                            } else if (t.aligin == 'right') {
+                                rightContent = t;
+                            } else {
+                                centerContent = t;
+                            }
+                        }
+                    })
+
+                    var contentLength: number = 0;
+                    if (leftContent != undefined) {
+                        var t = encode(leftContent.content, 'gb18030')
+                        contentLength += t.length;
+                        buf.bold(leftContent?.fontBlod).raw(t)
                     }
-                })
-                buf.newline()
+
+                    if (centerContent != undefined) {
+                        var t = encode(centerContent.content, 'gb18030')
+                        var gap = (48 - contentLength - t.length) / 2;
+                        contentLength += (gap>0?(gap+t.length):t.length);
+                        buf.bold(centerContent.fontBlod).text(gap > 0 ? ' '.repeat(gap) : '').raw(t)
+                    }
+
+                    if (rightContent != undefined) {
+                        var t = encode(rightContent.content, 'gb18030')
+                        var gap= 48-contentLength - t.length;
+                        buf.bold(rightContent.fontBlod).text(gap > 0 ? ' '.repeat(gap) : '').raw(t)
+                    }
+                    buf.newline()
+                } else {
+                    if (d.data[0].content != '') {
+                        buf.align(d.data[0].aligin == 'center' ? 'center' : (d.data[0].aligin == 'left' ? 'left' : 'right')).bold(d.data[0].fontBlod).size('normal').raw(encode(d.data[0].content, 'gb18030')).newline()
+                    }
+                }
             } else if (d instanceof EmptyPrintData) {
                 for (var i = 0; i < d.num; i++) {
                     buf.newline();
@@ -30,34 +67,34 @@ function PrinterModel(props: { printData: PrintData[], utils: printerUtils }) {
             } else if (d instanceof TabPrintData) {
                 d.tabData.map((data, index) => {
                     var itemStart = 0;
-                    var extraData : {marginLeft:Number,mraginRight:number,data:Uint8Array,itemLength:number}[] = [];
-                    data.tabData.map((d,i) => {
-                            var itemLength = (data.tabConfigs[i].width / data.tabConfigs[i].allWidth) * 48
-                            var encodeData= encode(d.content, 'gb18030');
-                            var contentLength = encodeData.length;
-                            var itemWidth;
-                            var marginLeft = 0;
-                            var marginRight = 0;
-                            if (contentLength > itemLength) {
-                                encodeData= encodeData.slice(0,itemLength);
-                                itemWidth = itemLength;
-                            } else {                          
-                                if (data.tabConfigs[i].align == 'left') {
-                                    //left
-                                    marginRight = itemLength - contentLength;
-                                } else {
-                                    //right
-                                    marginLeft = itemLength - contentLength;
-                                }
+                    var extraData: { marginLeft: Number, mraginRight: number, data: Uint8Array, itemLength: number }[] = [];
+                    data.tabData.map((d, i) => {
+                        var itemLength = (data.tabConfigs[i].width / data.tabConfigs[i].allWidth) * 48
+                        var encodeData = encode(d.content, 'gb18030');
+                        var contentLength = encodeData.length;
+                        var itemWidth;
+                        var marginLeft = 0;
+                        var marginRight = 0;
+                        if (contentLength > itemLength) {
+                            encodeData = encodeData.slice(0, itemLength);
+                            itemWidth = itemLength;
+                        } else {
+                            if (data.tabConfigs[i].align == 'left') {
+                                //left
+                                marginRight = itemLength - contentLength;
+                            } else {
+                                //right
+                                marginLeft = itemLength - contentLength;
                             }
+                        }
 
-                        buf.text(marginLeft>0?' '.repeat(marginLeft):'').raw(encodeData).text(marginRight>0?' '.repeat(marginRight):'')
+                        buf.text(marginLeft > 0 ? ' '.repeat(marginLeft) : '').raw(encodeData).text(marginRight > 0 ? ' '.repeat(marginRight) : '')
                         itemStart += itemLength;
                     })
-                    buf.newline()       
+                    buf.newline()
                 })
 
-                
+
             }
 
         })

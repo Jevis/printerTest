@@ -3,7 +3,7 @@ import { TextData } from '../bean'
 import TextComponent from '../dialog_component/text/component/textComponent'
 
 export default function MenuItem(props: { id: number, data: TextData, editListenrer: (index: number, data: TextData) => void, removeListener: (index: number) => void }) {
-
+   
 
     function editContent(d: TextData) {
         props.editListenrer(props.id, d);
@@ -11,8 +11,13 @@ export default function MenuItem(props: { id: number, data: TextData, editListen
 
     return <div id={props.id + ''} className="MenuItem" >
 
-        <div style={{ flex: 5 }}>
-            {props.data.content}
+        <div style={{ flex: 10 ,display:'flex',flexDirection:'column'}}>
+            <div>
+               {('位置：  ').concat (props.data.aligin == 'center'?'居中':(props.data.aligin == 'left'?'居左':'居右'))}
+            </div>
+            <div>
+                {props.data.content}
+            </div> 
         </div>
         <TextComponent type={0} data={props.data} listener={editContent} />
         <div style={{ flex: 1 }} onClick={(e) => props.removeListener(props.id)}>
