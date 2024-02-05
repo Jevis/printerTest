@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage ":"http://github-jevis.github.io/printerTest",
+  "homepage ":"https://jevis.github.io/printerTest",
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",
