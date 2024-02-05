@@ -37,7 +37,7 @@ function PrinterModel(props: { printData: PrintData[], utils: printerUtils }) {
                     if (leftContent != undefined) {
                         var t = encode(leftContent.content, 'gb18030')
                         contentLength += t.length;
-                        buf.bold(leftContent?.fontBlod).raw(t)
+                        buf.bold(leftContent?.fontBlod).width(leftContent.fontSize).height(leftContent.fontSize).raw(t)
                     }
 
                     if (centerContent != undefined) {
@@ -45,13 +45,13 @@ function PrinterModel(props: { printData: PrintData[], utils: printerUtils }) {
                         var gap = (48 - t.length) / 2;
                         var moevLength= (gap>contentLength?gap-contentLength:0);
                         contentLength += moevLength+t.length
-                        buf.bold(centerContent.fontBlod).text(moevLength>0 ? ' '.repeat(moevLength) : '').raw(t)
+                        buf.bold(centerContent.fontBlod).text(moevLength>0 ? ' '.repeat(moevLength) : '').width(centerContent.fontSize).height(centerContent.fontSize).raw(t)
                     }
 
                     if (rightContent != undefined) {
                         var t = encode(rightContent.content, 'gb18030')
                         var gap= 48-contentLength - t.length;
-                        buf.bold(rightContent.fontBlod).text(gap > 0 ? ' '.repeat(gap) : '').raw(t)
+                        buf.bold(rightContent.fontBlod).text(gap > 0 ? ' '.repeat(gap) : '').width(rightContent.fontSize).height(rightContent.fontSize).raw(t)
                     }
                     buf.newline()
                 } else {

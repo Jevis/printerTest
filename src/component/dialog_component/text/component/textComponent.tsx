@@ -21,7 +21,7 @@ export default function AddTextComponent(props: { type: number, data: TextData, 
             setContentValue('')
             setHitHeight(0)
             setFontPosition('left')
-            setFontSize('0')
+            setFontSize(1)
             setFontbold(false)
             setDialogOpen(false)
         }
@@ -68,11 +68,11 @@ export default function AddTextComponent(props: { type: number, data: TextData, 
                         </label>
                         <label className="ItemLable" defaultValue={fontSize}>
                             字号：
-                            <select style={{ fontSize: '16px' }} defaultValue={fontSize} onChange={(e) => setFontSize(e.target.value)}>
-                                <option value={'0'}>1</option>
-                                <option value={'1'}>2</option>
-                                <option value={'2'}>3</option>
-                                <option value={'3'}>4</option>
+                            <select style={{ fontSize: '16px' }} defaultValue={fontSize} onChange={(e) => setFontSize(Number(e.target.value))}>
+                                <option value={'1'}>1</option>
+                                <option value={'2'}>2</option>
+                                <option value={'3'}>3</option>
+                                <option value={'4'}>4</option>
                             </select>
                         </label>
                         <label className="ItemLable">

@@ -2,10 +2,10 @@ type alignType = "left" | "center" | "right";
 export class TextData {
     content: string = '';
     aligin: string = 'left';
-    fontSize: string = '0';
+    fontSize: number = 1;
     fontBlod: boolean = false;
 
-    constructor(content: string, aligin: string, fontSize: string, fontBlod: boolean) {
+    constructor(content: string, aligin: string, fontSize: number, fontBlod: boolean) {
         this.content = content;
         this.aligin = aligin;
         this.fontSize = fontSize;
