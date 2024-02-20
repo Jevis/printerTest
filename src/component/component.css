@@ -173,3 +173,20 @@
   text-align: right;
 }
 
+.smallLabel{
+  font-size: 18px;
+  margin-top: 20px;
+  color: #282c34;
+}
+
+
+.bigLabel{
+  font-size: 22px;
+  margin-top: 10px;
+  color: white;
+  margin-left: 50px;
+}
+
+.bigInput{
+  font-size: 20px;
+}

@@ -1,15 +1,16 @@
 import React from 'react';
 import './App.css';
 import Home from './page/home';
+import StyleOne from './page/styleOne/style_one';
 
 function App() {
 
 
   return (
     <div className="App">
-      <header className="App-header">
-       <Home></Home>
-      </header>
+      <div className="App-header">
+      <StyleOne></StyleOne>
+      </div>
     </div>
   );
 }

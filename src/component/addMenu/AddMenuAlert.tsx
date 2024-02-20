@@ -1,59 +1,64 @@
 import { render } from "@testing-library/react";
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from "react";
-import { TabConfig, TabBean, TabData } from "../../bean";
-import { tab } from "@testing-library/user-event/dist/tab";
-import '../../component.css'
-
-export default function TabAddContentAlert(props: { index: number, tabCount: number, tadDatas: TabBean[], dataChangeListener: (index: number, data: TabBean[]) => void }) {
+import '.././component.css'
+import { StyleOneMenu } from "../bean";
+export default function AddMenuAlert(props: { index: number, initData: StyleOneMenu | null, dataChangeListener: (index: number, data: StyleOneMenu) => void }) {
     const [dialogOpen, setDialogOpen] = useState(false);
-  
+    const [name, setName] = useState(props.initData == null ? '' : props.initData.name);
+    const [price, setPrice] = useState(props.initData == null ? 0 : Number(props.initData.price));
+    const [count, setCount] = useState(props.initData == null ? 0 : Number(props.initData.count));
+    const [hint, setHint] = useState('')
 
-   
 
     function saveBtnClick() {
-        if (props.tadDatas.length > props.tabCount) {
-            var t = props.tadDatas.slice(0, props.tabCount)
-            props.dataChangeListener(props.index, t)
+        if (name == undefined || name == '' || price == 0 || count == 0) {
+            setHint('数据异常,不能保存')
         } else {
-            props.dataChangeListener(props.index, props.tadDatas)
+            props.dataChangeListener(props.index, new StyleOneMenu(name, String(price), String(count)))
+            setDialogOpen(false)
         }
-        setDialogOpen(false)
     }
 
 
-    function getTabRender(number: number) {
-        let render = []
-        for (let index = 0; index < number; index++) {
-            render.push(<div>
-                <label>
-                    第{index + 1}列文案：
-                </label>
-                <input defaultValue={props.tadDatas.length > index ? props.tadDatas[index].content : ''} onChange={e => {
-                    props.tadDatas[index] = new TabBean(e.target.value)
-                }}></input>
-            </div>);
-        }
-        return render;
-    }
     return (
-         
+
         <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
             <Dialog.Trigger asChild>
                 {
-                <div style={{ height: "100%", width: '70px', backgroundColor: '#282c34', color: 'white', borderRadius: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>添加</div>
+                    <div style={{ height: "auto", width: 'auto', backgroundColor: 'white', color: 'black', borderRadius: '20px', fontSize: 17, paddingTop: 4, paddingBottom: 4, paddingLeft: 10, paddingRight: 10 }}>
+                        {
+                            props.initData == null ? '添加菜单' : '修改菜单'
+                        }
+                    </div>
                 }
 
             </Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay className='DialogOverlay'></Dialog.Overlay>
                 <Dialog.Content className='DialogContent'>
-                    <Dialog.Title>添加或者修改内容</Dialog.Title>
-                    <div style={{ width: '300px', height: '600px', display: 'flex', flexDirection: 'column' }}>
-                        {
-                            getTabRender(props.tabCount)
-                        }
-                        <button onClick={saveBtnClick}>保存</button>
+                    <Dialog.Title asChild>
+                        <div style={{ display: 'flex', width: '100%', flexDirection: 'row', fontSize: '30px', justifyContent: 'center', marginBottom: '40px' }}>
+                            添加或者修改内容
+                        </div>
+                    </Dialog.Title>
+                    <div style={{ width: '100%', height: '500px', display: 'flex', flexDirection: 'column' }}>
+                        <label className="smallLabel">
+                            菜名：
+                            <input defaultValue={props.initData?.name} onChange={(v) => { setName(v.target.value) }}></input>
+                        </label>
+                        <label className="smallLabel">
+                            份数：
+                            <input type="number" defaultValue={props.initData?.count} onChange={(v) => { setCount(Number(v.target.value)) }}></input>
+                        </label>
+                        <label className="smallLabel">
+                            单价：
+                            <input type="number" defaultValue={props.initData?.price} onChange={(v) => { setPrice(Number(v.target.value)) }}></input>
+                        </label>
+                        <div style={{ marginTop: '20px', marginBottom: '20px', color: 'red' }}>
+                            {hint}
+                        </div>
+                        <button style={{ width: '120px', height: '40px', marginTop: '50px', alignSelf: 'center', borderRadius: '20px' }} onClick={saveBtnClick}>保存</button>
                     </div>
                     <Dialog.Close asChild>
                         <button className="IconButton" aria-label="Close">

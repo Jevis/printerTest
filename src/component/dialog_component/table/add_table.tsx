@@ -2,7 +2,6 @@ import EscPosEncoder from "esc-pos-encoder";
 import { PrintData, TabConfig, TabBean, TabData, TabPrintData } from "../../bean";
 import { useEffect, useState } from "react";
 import TabConfigAlert from "./tabConfigAlert";
-import TabAddContentAlert from "./tabAddDataAlert";
 
 export default function AddTable(props: { tabPrintData: TabData[] | null, addEncoderListen: (data: PrintData) => void }) {
     const [tabNumber, setTabNumber] = useState(3);
@@ -72,9 +71,9 @@ export default function AddTable(props: { tabPrintData: TabData[] | null, addEnc
             d.tabConfigs.map((config, rowIndex) => {
                 return (
                     <div style={{ flexGrow: config.width, width: '20px', backgroundColor: tabColor[rowIndex], color: 'red', height: '30px', justifyContent: config.align, display: 'flex', marginLeft: config.marginLeft, marginRight: config.marginRight }}>
-                        <TabAddContentAlert index={rowIndex} tabCount={tabNumber} tadDatas={d.tabData} dataChangeListener={function (rowIndex: number, data: TabBean[]): void {
+                        {/* <TabAddContentAlert index={rowIndex} tabCount={tabNumber} tadDatas={d.tabData} dataChangeListener={function (rowIndex: number, data: TabBean[]): void {
                             dataChangeListener(columnIndex, data)
-                        }}></TabAddContentAlert>
+                        }}></TabAddContentAlert> */}
                     </div>
                 );
             })
@@ -108,7 +107,7 @@ export default function AddTable(props: { tabPrintData: TabData[] | null, addEnc
 
             <label style={{ width: '100%', height: '30px', marginTop: '30px', display: 'flex', flexDirection: 'row', fontSize: '18px' }}>
                 添加内容：
-                <TabAddContentAlert index={-1} tabCount={tabNumber} tadDatas={[]} dataChangeListener={dataChangeListener}></TabAddContentAlert>
+                {/* <TabAddContentAlert index={-1} tabCount={tabNumber} tadDatas={[]} dataChangeListener={dataChangeListener}></TabAddContentAlert> */}
             </label>
             <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#f5f5f5', height: '450px', marginTop: '20px' }}>
                 {
