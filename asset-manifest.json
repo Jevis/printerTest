@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/printertest/static/css/main.c584c746.css",
-    "main.js": "/printertest/static/js/main.be6b2267.js",
+    "main.css": "/printertest/static/css/main.6c1a3f2c.css",
+    "main.js": "/printertest/static/js/main.96e01fec.js",
     "static/js/787.d4aba7ab.chunk.js": "/printertest/static/js/787.d4aba7ab.chunk.js",
     "index.html": "/printertest/index.html",
-    "main.c584c746.css.map": "/printertest/static/css/main.c584c746.css.map",
-    "main.be6b2267.js.map": "/printertest/static/js/main.be6b2267.js.map",
+    "main.6c1a3f2c.css.map": "/printertest/static/css/main.6c1a3f2c.css.map",
+    "main.96e01fec.js.map": "/printertest/static/js/main.96e01fec.js.map",
     "787.d4aba7ab.chunk.js.map": "/printertest/static/js/787.d4aba7ab.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c584c746.css",
-    "static/js/main.be6b2267.js"
+    "static/css/main.6c1a3f2c.css",
+    "static/js/main.96e01fec.js"
   ]
 }
